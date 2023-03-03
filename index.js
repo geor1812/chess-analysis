@@ -1,21 +1,12 @@
-import fs from 'fs'
-import path from 'path'
-import { Worker } from 'node:worker_threads'
-//const stockfish = require('stockfish')
-const STOCKFISH_PATH = './node_modules/stockfish/src/stockfish.js'
+import Stockfish from 'stockfish.wasm'
 
-const wasmSupported =
-    typeof WebAssembly === 'object' &&
-    WebAssembly.validate(
-        Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00)
-    )
-console.log('wasm supported:', wasmSupported)
+Stockfish().then((engine) => {
+    engine.addMessageListener((message) => {
+        console.log(message)
+    })
 
-console.log('Starting stockfish')
-const stockfish = new Worker(STOCKFISH_PATH)
-
-stockfish.on('error', (error) => console.log(error))
-stockfish.on('exit', (exitCode) => console.log(exitCode))
-stockfish.on('message', (message) => console.log(data))
-
-stockfish.postMessage('INIT_ENGINE()')
+    engine.postMessage('uci')
+    engine.postMessage('position fen 4k2r/6r1/8/8/8/8/3R4/R3K3 w Qk - 0 1.')
+    engine.postMessage('d')
+    engine.postMessage('go depth 5')
+})
