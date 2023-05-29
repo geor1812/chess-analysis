@@ -2,10 +2,12 @@ import { Typography, Box, Stack } from '@mui/material'
 import { Link } from 'react-router-dom'
 //@ts-ignore
 import logo from '../images/white_knight.png'
+import en_US from '../i18n/en_US.json'
 
 type LinkItemProps = { url: string; text: string }
 
 const Homepage = () => {
+  console.log(en_US)
   return (
     <Box
       display="flex"
@@ -14,11 +16,11 @@ const Homepage = () => {
       flexDirection="column"
     >
       <Typography sx={{ mt: 5 }} variant="h2">
-        CHESS ANALYSIS
+        {en_US.homepage.title}
       </Typography>
       <img src={logo} style={{ width: '400px' }} />
       <Stack direction="row" sx={{ mt: 5 }}>
-        <LinkItem url="/analysis" text="Analysis board"></LinkItem>
+        <LinkItem url="/analysis" text={en_US.homepage.analysis} />
       </Stack>
     </Box>
   )
