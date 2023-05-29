@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Board from 'chessboardjsx'
 import { Chess } from 'chess.js'
+import { stringify } from 'querystring'
 
 const Chessboard = () => {
   const [game, setGame] = useState<any>()
@@ -12,6 +13,32 @@ const Chessboard = () => {
   useEffect(() => {
     setGame(new Chess())
   }, [])
+
+  const removePossibleMovesHighlight = () => {
+    setSquareStyles(getSquareStyling({ pieceSquare, history }))
+  }
+
+  const highlightPossibleMoves = (
+    sourceSquare: string,
+    squaresToHighlight: string[]
+  ) => {
+    const highlightStyles = [...squaresToHighlight].reduce((a, c) => {
+      return {
+        ...a,
+        ...{
+          [c]: {
+            background: 'radial-gradient(circle, #00dc78 10%, transparent 40%)',
+          },
+        },
+      }
+    }, {})
+
+    const existingStyles = getSquareStyling({
+      pieceSquare: sourceSquare,
+      history,
+    })
+    setSquareStyles({ ...highlightStyles, ...existingStyles })
+  }
 
   const onDrop = ({
     sourceSquare,
@@ -30,14 +57,26 @@ const Chessboard = () => {
       return null
     }
 
+    const newHistory = game.history({ verbose: true })
+    setHistory(newHistory)
     setFen(game.fen())
-    //setHistory(game.history({ verbose: true }))
+    setSquareStyles(getSquareStyling({ pieceSquare: '', history: newHistory }))
   }
 
   const onSquareClick = (square: string) => {
     setPieceSquare(square)
-    setSquareStyles(squareStyling({ pieceSquare, history }))
+    setSquareStyles(getSquareStyling({ pieceSquare: square, history }))
 
+    const possibleMoves = game.moves({
+      square: square,
+      verbose: true,
+    })
+    const squaresToHighlight = []
+    for (let i = 0; i < possibleMoves.length; i++) {
+      squaresToHighlight.push(possibleMoves[i].to)
+    }
+
+    highlightPossibleMoves(square, squaresToHighlight)
     try {
       game.move({
         from: pieceSquare,
@@ -47,44 +86,38 @@ const Chessboard = () => {
     } catch (error) {
       return null
     }
-
+    const newHistory = game.history({ verbose: true })
+    setHistory(newHistory)
     setFen(game.fen())
-    //setHistory(game.history({ verbose: true }))
     setPieceSquare('')
-  }
-
-  const onMouseOverSquare = (square: string) => {
-    const possibleMoves = game.moves({
-      square: square,
-      verbose: true,
-    })
+    setSquareStyles(getSquareStyling({ pieceSquare: '', history: newHistory }))
   }
 
   return (
     <Board
       width={850}
       position={fen}
+      squareStyles={squareStyles}
       onDrop={onDrop}
       onSquareClick={onSquareClick}
-      onMouseOverSquare={onMouseOverSquare}
     />
   )
 }
 
-const squareStyling = ({ pieceSquare, history }) => {
+const getSquareStyling = ({ pieceSquare, history }) => {
   const sourceSquare = history.length && history[history.length - 1].from
   const targetSquare = history.length && history[history.length - 1].to
 
   return {
-    [pieceSquare]: { backgroundColor: 'rgba(255, 255, 0, 0.4)' },
+    [pieceSquare]: { backgroundColor: 'rgba(0, 220, 120, 0.4)' },
     ...(history.length && {
       [sourceSquare]: {
-        backgroundColor: 'rgba(255, 255, 0, 0.4)',
+        backgroundColor: 'rgba(255, 255, 50, 0.4)',
       },
     }),
     ...(history.length && {
       [targetSquare]: {
-        backgroundColor: 'rgba(255, 255, 0, 0.4)',
+        backgroundColor: 'rgba(255, 255, 50, 0.4)',
       },
     }),
   }
