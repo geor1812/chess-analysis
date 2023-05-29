@@ -1,5 +1,9 @@
-import { Typography, Box, Paper } from '@mui/material'
-import white_knight from '../images/white_knight.png'
+import { Typography, Box, Stack } from '@mui/material'
+import { Link } from 'react-router-dom'
+//@ts-ignore
+import logo from '../images/white_knight.png'
+
+type LinkItemProps = { url: string; text: string }
 
 const Homepage = () => {
   return (
@@ -8,13 +12,31 @@ const Homepage = () => {
       justifyContent="center"
       alignItems="center"
       flexDirection="column"
-      minHeight="30vh"
     >
-      <Typography variant="h2">CHESS ANALYSIS</Typography>
-      <Paper variant="outlined">
-        <img src={white_knight} />
-      </Paper>
+      <Typography sx={{ mt: 5 }} variant="h2">
+        CHESS ANALYSIS
+      </Typography>
+      <img src={logo} style={{ width: '400px' }} />
+      <Stack direction="row" sx={{ mt: 5 }}>
+        <LinkItem url="/analysis" text="Analysis board"></LinkItem>
+      </Stack>
     </Box>
+  )
+}
+
+const LinkItem = ({ url, text }: LinkItemProps) => {
+  return (
+    <Link to={url} style={{ textDecoration: 'none' }}>
+      <Typography
+        variant="h3"
+        color="text.primary"
+        sx={{
+          '&:hover': { color: 'text.secondary', textDecoration: 'underline' },
+        }}
+      >
+        {text}
+      </Typography>
+    </Link>
   )
 }
 
