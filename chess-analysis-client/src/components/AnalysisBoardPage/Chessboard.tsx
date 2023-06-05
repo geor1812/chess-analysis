@@ -1,18 +1,16 @@
 import { useState, useEffect } from 'react'
 import Board from 'chessboardjsx'
-import { Chess } from 'chess.js'
-import { stringify } from 'querystring'
 
-const Chessboard = () => {
-  const [game, setGame] = useState<any>()
+type ChessboardProps = {
+  game: any
+  history: any[]
+  setHistory: (history: any[]) => void
+}
+
+const Chessboard = ({ game, history, setHistory }: ChessboardProps) => {
   const [fen, setFen] = useState('start')
-  const [history, setHistory] = useState([])
   const [pieceSquare, setPieceSquare] = useState('')
   const [squareStyles, setSquareStyles] = useState({})
-
-  useEffect(() => {
-    setGame(new Chess())
-  }, [])
 
   const highlightPossibleMoves = (
     sourceSquare: string,

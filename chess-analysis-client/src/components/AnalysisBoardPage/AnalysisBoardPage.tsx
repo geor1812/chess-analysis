@@ -1,7 +1,18 @@
+import { useState, useEffect } from 'react'
 import { Stack, Box } from '@mui/material'
+import { Chess } from 'chess.js'
+
 import Chessboard from './Chessboard'
+import Sidebar from './Sidebar'
 
 const AnalysisBoardPage = () => {
+  const [game, setGame] = useState<any>()
+  const [history, setHistory] = useState([])
+
+  useEffect(() => {
+    setGame(new Chess())
+  }, [])
+
   return (
     <Stack direction="row">
       <Box
@@ -13,15 +24,18 @@ const AnalysisBoardPage = () => {
           height: '100vh',
         }}
       >
-        <Chessboard />
+        <Chessboard game={game} history={history} setHistory={setHistory} />
       </Box>
       <Box
         sx={{
-          widht: '40vw',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '35vw',
           height: '100vh',
         }}
       >
-        Other stuff goes here
+        <Sidebar game={game} />
       </Box>
     </Stack>
   )

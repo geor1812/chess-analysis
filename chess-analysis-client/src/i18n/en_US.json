@@ -3,5 +3,13 @@
     "title": "CHESS ANALYSIS",
     "analysis": "Analysis board",
     "info": "Info"
+  },
+  "analysisBoardPage": {
+    "import": "Import a game",
+    "pgn": "PGN",
+    "pgnTooltip": "Portable Game Notation (PGN) is a standard plain text format for recording chess games (both the moves and related data), which can be read by humans and is also supported by most chess software.",
+    "pgnPrompt": "Make a move or import a game to start analysis",
+    "fen": "FEN",
+    "fenTooltip": "Forsyth-Edwards Notation (FEN) is the standard notation to describe positions of a chess game. The notation system was created by  Steven J. Edwards, a computer programmer. FEN differs from PGN because it denotes only a single position instead of the moves that lead to it."
   }
 }
