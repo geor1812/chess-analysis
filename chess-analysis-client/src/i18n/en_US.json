@@ -6,6 +6,8 @@
   },
   "analysisBoardPage": {
     "importText": "Import a game",
+    "invalidFen": "Invalid FEN",
+    "invalidPgn": "Invalig PGN",
     "import": "Import",
     "cancel": "Cancel",
     "searchDatabase": "Search database",

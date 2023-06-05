@@ -28,7 +28,7 @@ const SelectScreen = ({ handleClose, setScreen }: SelectScreenProps) => {
           <Button onClick={() => setScreen(SCREEN.Fen)} size="large">
             <Typography variant="h6">{en_US.analysisBoardPage.fen}</Typography>
           </Button>
-          <Button size="large">
+          <Button onClick={() => setScreen(SCREEN.Pgn)} size="large">
             <Typography variant="h6">{en_US.analysisBoardPage.pgn}</Typography>
           </Button>
           <Button size="large">

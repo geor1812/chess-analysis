@@ -75,29 +75,32 @@ const Sidebar = ({ game, setFen }: SidebarProps) => {
             {game ? <Typography>{game.fen()}</Typography> : ''}
           </Box>
         </SectionWrapper>
-        <SectionWrapper>
-          <SectionHeader
-            text={en_US.analysisBoardPage.pgn}
-            tooltip={en_US.analysisBoardPage.pgnTooltip}
-          />
-          <Box
-            sx={{
-              p: 2,
-              height: '20vh',
-              backgroundColor: 'background.default',
-            }}
-          >
-            {game?.pgn().length > 0 ? (
-              <Typography sx={{ whiteSpace: 'pre-line' }}>
-                {game.pgn({ maxWidth: 25, newline: '\n' })}
-              </Typography>
-            ) : (
-              <Typography sx={{ mt: 7, ml: 9 }}>
-                {en_US.analysisBoardPage.pgnPrompt}
-              </Typography>
-            )}
-          </Box>
-        </SectionWrapper>
+        <Stack direction="row" spacing={2}>
+          <SectionWrapper>
+            <SectionHeader
+              text={en_US.analysisBoardPage.pgn}
+              tooltip={en_US.analysisBoardPage.pgnTooltip}
+            />
+            <Box
+              sx={{
+                p: 2,
+                height: '71vh',
+                width: '17vw',
+                backgroundColor: 'background.default',
+                overflowY: 'scroll',
+              }}
+            >
+              {game?.pgn().length > 0 ? (
+                <Typography sx={{ whiteSpace: 'pre-line' }}>
+                  {game.pgn({ maxWidth: 5, newline: '\n' })}
+                </Typography>
+              ) : (
+                <Typography>{en_US.analysisBoardPage.pgnPrompt}</Typography>
+              )}
+            </Box>
+          </SectionWrapper>
+          <SectionWrapper>Other stuff here</SectionWrapper>
+        </Stack>
       </Paper>
     </>
   )

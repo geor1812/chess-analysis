@@ -16,19 +16,19 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import en_US from '../../../i18n/en_US.json'
 import { SCREEN } from './ImportModal'
 
-type FenScreenProps = {
+type PgnScreenProps = {
   handleClose: () => void
   setScreen: (screen: SCREEN) => void
-  importFen: (fen: string) => void
+  importPgn: (pgn: string) => void
   hasError: boolean
 }
-const FenScreen = ({
+const PgnScreen = ({
   handleClose,
   setScreen,
-  importFen,
+  importPgn,
   hasError,
-}: FenScreenProps) => {
-  const [fen, setFen] = useState('')
+}: PgnScreenProps) => {
+  const [pgn, setPgn] = useState('')
   return (
     <Paper sx={{ width: 500 }}>
       <DialogTitle sx={{ display: 'flex' }}>
@@ -39,7 +39,7 @@ const FenScreen = ({
           sx={{ flexGrow: '100', display: 'flex', justifyContent: 'center' }}
         >
           <Typography variant="h5" sx={{ pr: 5, fontWeight: 600 }}>
-            {en_US.analysisBoardPage.fenScreenTitle}
+            {en_US.analysisBoardPage.pgnScreenTitle}
           </Typography>
         </Box>
       </DialogTitle>
@@ -47,14 +47,15 @@ const FenScreen = ({
         <TextField
           fullWidth
           multiline
-          value={fen}
-          onChange={(e) => setFen(e.target.value)}
+          rows={10}
+          value={pgn}
+          onChange={(e) => setPgn(e.target.value)}
           sx={{ backgroundColor: 'background.default' }}
           error={hasError}
         />
         {hasError && (
           <FormHelperText error>
-            {en_US.analysisBoardPage.invalidFen}
+            {en_US.analysisBoardPage.invalidPgn}
           </FormHelperText>
         )}
       </DialogContent>
@@ -64,7 +65,7 @@ const FenScreen = ({
           variant="outlined"
           color="primary"
           onClick={() => {
-            importFen(fen)
+            importPgn(pgn)
           }}
         >
           {en_US.analysisBoardPage.import}
@@ -82,4 +83,4 @@ const FenScreen = ({
   )
 }
 
-export default FenScreen
+export default PgnScreen

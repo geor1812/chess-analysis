@@ -3,6 +3,7 @@ import { Dialog } from '@mui/material'
 
 import SelectScreen from './SelectScreen'
 import FenScreen from './FenScreen'
+import PgnScreen from './PgnScreen'
 type ImportModalProps = {
   open: boolean
   handleClose: () => void
@@ -13,14 +14,15 @@ type ImportModalProps = {
 export enum SCREEN {
   Select,
   Fen,
+  Pgn,
 }
 
 const ImportModal = ({ open, handleClose, game, setFen }: ImportModalProps) => {
   const [screen, setScreen] = useState(SCREEN.Select)
   const [fenError, setFenError] = useState(false)
+  const [pgnError, setPgnError] = useState(false)
 
   const importFen = (fen: string) => {
-    game.clear()
     try {
       game.load(fen.trim())
       setFen(game.fen())
@@ -30,11 +32,24 @@ const ImportModal = ({ open, handleClose, game, setFen }: ImportModalProps) => {
     }
   }
 
+  const importPgn = (pgn: string) => {
+    const currentPgn = game.pgn()
+    try {
+      game.loadPgn(pgn)
+      setFen(game.fen())
+      handleClose()
+    } catch (error) {
+      setPgnError(true)
+      game.loadPgn(currentPgn)
+    }
+  }
+
   useEffect(() => {
     //Delaying by 200ms to avoid screen jumping during closing transition
     setTimeout(() => {
       setScreen(SCREEN.Select)
       setFenError(false)
+      setPgnError(false)
     }, 200)
   }, [open])
 
@@ -47,6 +62,15 @@ const ImportModal = ({ open, handleClose, game, setFen }: ImportModalProps) => {
             setScreen={setScreen}
             importFen={importFen}
             hasError={fenError}
+          />
+        )
+      case SCREEN.Pgn:
+        return (
+          <PgnScreen
+            handleClose={handleClose}
+            setScreen={setScreen}
+            importPgn={importPgn}
+            hasError={pgnError}
           />
         )
       default:
