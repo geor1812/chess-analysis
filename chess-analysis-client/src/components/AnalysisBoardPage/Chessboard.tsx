@@ -14,20 +14,19 @@ const Chessboard = () => {
     setGame(new Chess())
   }, [])
 
-  const removePossibleMovesHighlight = () => {
-    setSquareStyles(getSquareStyling({ pieceSquare, history }))
-  }
-
   const highlightPossibleMoves = (
     sourceSquare: string,
     squaresToHighlight: string[]
   ) => {
     const highlightStyles = [...squaresToHighlight].reduce((a, c) => {
+      const hasPiece = game.get(c) ? true : false
       return {
         ...a,
         ...{
           [c]: {
-            background: 'radial-gradient(circle, #00dc78 10%, transparent 40%)',
+            background: hasPiece
+              ? 'radial-gradient(circle, transparent 60%,  #00dc78)'
+              : 'radial-gradient(circle, #00dc78 10%, transparent 40%)',
           },
         },
       }
@@ -37,7 +36,7 @@ const Chessboard = () => {
       pieceSquare: sourceSquare,
       history,
     })
-    setSquareStyles({ ...highlightStyles, ...existingStyles })
+    setSquareStyles({ ...existingStyles, ...highlightStyles })
   }
 
   const onDrop = ({
