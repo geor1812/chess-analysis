@@ -5,7 +5,11 @@
     "info": "Info"
   },
   "analysisBoardPage": {
-    "import": "Import a game",
+    "importText": "Import a game",
+    "import": "Import",
+    "cancel": "Cancel",
+    "fenScreenTitle": "Import FEN",
+    "pgnScreenTitle": "Import PGN",
     "pgn": "PGN",
     "pgnTooltip": "Portable Game Notation (PGN) is a standard plain text format for recording chess games (both the moves and related data), which can be read by humans and is also supported by most chess software.",
     "pgnPrompt": "Make a move or import a game to start analysis",

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
 import {
   Paper,
   Typography,
@@ -11,6 +11,7 @@ import {
 import InfoIcon from '@mui/icons-material/Info'
 import ControlPointIcon from '@mui/icons-material/ControlPoint'
 
+import ImportModal from './ImportModal/ImportModal'
 import en_US from '../../i18n/en_US.json'
 
 type SidebarProps = {
@@ -28,57 +29,69 @@ type SectionWrapperProps = {
 }
 
 const Sidebar = ({ game }: SidebarProps) => {
+  const [openImportModal, setOpenImportModal] = useState(false)
+  const handleOpen = () => setOpenImportModal(true)
+  const handleClose = () => setOpenImportModal(false)
+
   return (
-    <Paper
-      sx={{
-        p: 2,
-        width: '35vw',
-        height: '95vh',
-      }}
-    >
-      <SectionWrapper sx={{ display: 'flex', justifyContent: 'center', mb: 0 }}>
-        <Tooltip title={en_US.analysisBoardPage.import} arrow>
-          <IconButton size="large" color="primary">
-            <ControlPointIcon sx={{ width: 50, height: 50 }} fontSize="large" />
-          </IconButton>
-        </Tooltip>
-      </SectionWrapper>
-      <SectionWrapper>
-        <SectionHeader
-          text={en_US.analysisBoardPage.fen}
-          tooltip={en_US.analysisBoardPage.fenTooltip}
-        />
-        <Box
-          sx={{
-            p: 2,
-            backgroundColor: 'background.default',
-          }}
+    <>
+      <ImportModal open={openImportModal} handleClose={handleClose} />
+      <Paper
+        sx={{
+          p: 2,
+          width: '35vw',
+          height: '95vh',
+        }}
+      >
+        <SectionWrapper
+          sx={{ display: 'flex', justifyContent: 'center', mb: 0 }}
         >
-          {game ? <Typography>{game.fen()}</Typography> : ''}
-        </Box>
-      </SectionWrapper>
-      <SectionWrapper>
-        <SectionHeader
-          text={en_US.analysisBoardPage.pgn}
-          tooltip={en_US.analysisBoardPage.pgnTooltip}
-        />
-        <Box
-          sx={{
-            p: 2,
-            height: '20vh',
-            backgroundColor: 'background.default',
-          }}
-        >
-          {game?.pgn().length > 0 ? (
-            <Typography>{game.pgn()}</Typography>
-          ) : (
-            <Typography sx={{ mt: 7, ml: 9 }}>
-              {en_US.analysisBoardPage.pgnPrompt}
-            </Typography>
-          )}
-        </Box>
-      </SectionWrapper>
-    </Paper>
+          <Tooltip title={en_US.analysisBoardPage.importText} arrow>
+            <IconButton onClick={handleOpen} size="large" color="primary">
+              <ControlPointIcon
+                sx={{ width: 50, height: 50 }}
+                fontSize="large"
+              />
+            </IconButton>
+          </Tooltip>
+        </SectionWrapper>
+        <SectionWrapper>
+          <SectionHeader
+            text={en_US.analysisBoardPage.fen}
+            tooltip={en_US.analysisBoardPage.fenTooltip}
+          />
+          <Box
+            sx={{
+              p: 2,
+              backgroundColor: 'background.default',
+            }}
+          >
+            {game ? <Typography>{game.fen()}</Typography> : ''}
+          </Box>
+        </SectionWrapper>
+        <SectionWrapper>
+          <SectionHeader
+            text={en_US.analysisBoardPage.pgn}
+            tooltip={en_US.analysisBoardPage.pgnTooltip}
+          />
+          <Box
+            sx={{
+              p: 2,
+              height: '20vh',
+              backgroundColor: 'background.default',
+            }}
+          >
+            {game?.pgn().length > 0 ? (
+              <Typography>{game.pgn()}</Typography>
+            ) : (
+              <Typography sx={{ mt: 7, ml: 9 }}>
+                {en_US.analysisBoardPage.pgnPrompt}
+              </Typography>
+            )}
+          </Box>
+        </SectionWrapper>
+      </Paper>
+    </>
   )
 }
 
