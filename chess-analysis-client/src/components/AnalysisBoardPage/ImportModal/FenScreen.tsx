@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   DialogActions,
   DialogContent,
@@ -8,6 +9,7 @@ import {
   Paper,
   IconButton,
   Box,
+  FormHelperText,
 } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
@@ -17,8 +19,16 @@ import { SCREEN } from './ImportModal'
 type FenScreenProps = {
   handleClose: () => void
   setScreen: (screen: SCREEN) => void
+  importFen: (fen: string) => void
+  hasError: boolean
 }
-const FenScreen = ({ handleClose, setScreen }: FenScreenProps) => {
+const FenScreen = ({
+  handleClose,
+  setScreen,
+  importFen,
+  hasError,
+}: FenScreenProps) => {
+  const [fen, setFen] = useState('')
   return (
     <Paper sx={{ width: 500 }}>
       <DialogTitle sx={{ display: 'flex' }}>
@@ -37,15 +47,21 @@ const FenScreen = ({ handleClose, setScreen }: FenScreenProps) => {
         <TextField
           fullWidth
           multiline
+          value={fen}
+          onChange={(e) => setFen(e.target.value)}
           sx={{ backgroundColor: 'background.default' }}
+          error={hasError}
         />
+        {hasError && <FormHelperText error>Invalid FEN</FormHelperText>}
       </DialogContent>
       <DialogActions sx={{ justifyContent: 'center' }}>
         <Button
           size="large"
           variant="outlined"
           color="primary"
-          onClick={handleClose}
+          onClick={() => {
+            importFen(fen)
+          }}
         >
           {en_US.analysisBoardPage.import}
         </Button>

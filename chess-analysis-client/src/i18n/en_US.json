@@ -8,6 +8,7 @@
     "importText": "Import a game",
     "import": "Import",
     "cancel": "Cancel",
+    "searchDatabase": "Search database",
     "fenScreenTitle": "Import FEN",
     "pgnScreenTitle": "Import PGN",
     "pgn": "PGN",

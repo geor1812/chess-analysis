@@ -4,11 +4,18 @@ import Board from 'chessboardjsx'
 type ChessboardProps = {
   game: any
   history: any[]
+  fen: string
+  setFen: (fen: string) => void
   setHistory: (history: any[]) => void
 }
 
-const Chessboard = ({ game, history, setHistory }: ChessboardProps) => {
-  const [fen, setFen] = useState('start')
+const Chessboard = ({
+  game,
+  history,
+  setHistory,
+  fen,
+  setFen,
+}: ChessboardProps) => {
   const [pieceSquare, setPieceSquare] = useState('')
   const [squareStyles, setSquareStyles] = useState({})
 

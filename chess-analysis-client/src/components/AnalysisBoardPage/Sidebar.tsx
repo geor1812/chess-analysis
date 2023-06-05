@@ -16,6 +16,7 @@ import en_US from '../../i18n/en_US.json'
 
 type SidebarProps = {
   game: any
+  setFen: (fen: string) => void
 }
 
 type SectionHeaderProps = {
@@ -28,14 +29,19 @@ type SectionWrapperProps = {
   sx?: SxProps
 }
 
-const Sidebar = ({ game }: SidebarProps) => {
+const Sidebar = ({ game, setFen }: SidebarProps) => {
   const [openImportModal, setOpenImportModal] = useState(false)
   const handleOpen = () => setOpenImportModal(true)
   const handleClose = () => setOpenImportModal(false)
 
   return (
     <>
-      <ImportModal open={openImportModal} handleClose={handleClose} />
+      <ImportModal
+        open={openImportModal}
+        handleClose={handleClose}
+        game={game}
+        setFen={setFen}
+      />
       <Paper
         sx={{
           p: 2,
@@ -82,7 +88,9 @@ const Sidebar = ({ game }: SidebarProps) => {
             }}
           >
             {game?.pgn().length > 0 ? (
-              <Typography>{game.pgn()}</Typography>
+              <Typography sx={{ whiteSpace: 'pre-line' }}>
+                {game.pgn({ maxWidth: 25, newline: '\n' })}
+              </Typography>
             ) : (
               <Typography sx={{ mt: 7, ml: 9 }}>
                 {en_US.analysisBoardPage.pgnPrompt}

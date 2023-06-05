@@ -5,9 +5,12 @@ import { Chess } from 'chess.js'
 import Chessboard from './Chessboard'
 import Sidebar from './Sidebar'
 
+const START_FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
+
 const AnalysisBoardPage = () => {
   const [game, setGame] = useState<any>()
   const [history, setHistory] = useState([])
+  const [fen, setFen] = useState(START_FEN)
 
   useEffect(() => {
     setGame(new Chess())
@@ -24,7 +27,13 @@ const AnalysisBoardPage = () => {
           height: '100vh',
         }}
       >
-        <Chessboard game={game} history={history} setHistory={setHistory} />
+        <Chessboard
+          game={game}
+          history={history}
+          setHistory={setHistory}
+          fen={fen}
+          setFen={setFen}
+        />
       </Box>
       <Box
         sx={{
@@ -35,7 +44,7 @@ const AnalysisBoardPage = () => {
           height: '100vh',
         }}
       >
-        <Sidebar game={game} />
+        <Sidebar game={game} setFen={setFen} />
       </Box>
     </Stack>
   )

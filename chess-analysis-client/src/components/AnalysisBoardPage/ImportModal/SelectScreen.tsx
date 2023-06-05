@@ -32,7 +32,9 @@ const SelectScreen = ({ handleClose, setScreen }: SelectScreenProps) => {
             <Typography variant="h6">{en_US.analysisBoardPage.pgn}</Typography>
           </Button>
           <Button size="large">
-            <Typography variant="h6">Search database</Typography>
+            <Typography variant="h6">
+              {en_US.analysisBoardPage.searchDatabase}
+            </Typography>
           </Button>
         </Stack>
       </DialogContent>
