@@ -5,6 +5,10 @@
     "info": "Info"
   },
   "analysisBoardPage": {
+    "back": "Back",
+    "next": "Next",
+    "reset": "Reset to current position",
+    "flip": "Flip board",
     "importText": "Import a game",
     "invalidFen": "Invalid FEN",
     "invalidPgn": "Invalig PGN",

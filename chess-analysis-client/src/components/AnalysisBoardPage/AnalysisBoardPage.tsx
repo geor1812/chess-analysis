@@ -8,10 +8,16 @@ import Sidebar from './Sidebar'
 
 const START_FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
 
+export enum Orientation {
+  White = 'white',
+  Black = 'black',
+}
+
 const AnalysisBoardPage = () => {
   const [game, setGame] = useState<any>()
   const [history, setHistory] = useState([])
   const [fen, setFen] = useState(START_FEN)
+  const [orientation, setOrientation] = useState<Orientation>(Orientation.White)
 
   useEffect(() => {
     setGame(new Chess())
@@ -34,6 +40,7 @@ const AnalysisBoardPage = () => {
           setHistory={setHistory}
           fen={fen}
           setFen={setFen}
+          orientation={orientation}
         />
       </Box>
       <Box
@@ -45,7 +52,12 @@ const AnalysisBoardPage = () => {
           height: '100vh',
         }}
       >
-        <Sidebar game={game} setFen={setFen} />
+        <Sidebar
+          game={game}
+          setFen={setFen}
+          orientation={orientation}
+          setOrientation={setOrientation}
+        />
       </Box>
     </Stack>
   )

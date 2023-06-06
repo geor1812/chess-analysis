@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react'
 import Board from 'chessboardjsx'
 
+import { Orientation } from './AnalysisBoardPage'
+
 type ChessboardProps = {
   game: any
   history: any[]
   fen: string
   setFen: (fen: string) => void
   setHistory: (history: any[]) => void
+  orientation: Orientation
 }
 
 const Chessboard = ({
@@ -15,6 +18,7 @@ const Chessboard = ({
   setHistory,
   fen,
   setFen,
+  orientation,
 }: ChessboardProps) => {
   const [pieceSquare, setPieceSquare] = useState('')
   const [squareStyles, setSquareStyles] = useState({})
@@ -108,6 +112,7 @@ const Chessboard = ({
       squareStyles={squareStyles}
       onDrop={onDrop}
       onSquareClick={onSquareClick}
+      orientation={orientation}
     />
   )
 }

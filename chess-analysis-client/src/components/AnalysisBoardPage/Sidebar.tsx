@@ -14,10 +14,13 @@ import ControlPointIcon from '@mui/icons-material/ControlPoint'
 import ImportModal from './ImportModal/ImportModal'
 import Actions from './Actions'
 import en_US from '../../i18n/en_US.json'
+import { Orientation } from './AnalysisBoardPage'
 
 type SidebarProps = {
   game: any
   setFen: (fen: string) => void
+  orientation: Orientation
+  setOrientation: (orientation: Orientation) => void
 }
 
 type SectionHeaderProps = {
@@ -30,7 +33,12 @@ type SectionWrapperProps = {
   sx?: SxProps
 }
 
-const Sidebar = ({ game, setFen }: SidebarProps) => {
+const Sidebar = ({
+  game,
+  setFen,
+  orientation,
+  setOrientation,
+}: SidebarProps) => {
   const [openImportModal, setOpenImportModal] = useState(false)
   const handleOpen = () => setOpenImportModal(true)
   const handleClose = () => setOpenImportModal(false)
@@ -101,7 +109,12 @@ const Sidebar = ({ game, setFen }: SidebarProps) => {
             </Box>
           </SectionWrapper>
           <SectionWrapper>
-            <Actions game={game} setFen={setFen} />
+            <Actions
+              game={game}
+              setFen={setFen}
+              orientation={orientation}
+              setOrientation={setOrientation}
+            />
           </SectionWrapper>
         </Stack>
       </Paper>
