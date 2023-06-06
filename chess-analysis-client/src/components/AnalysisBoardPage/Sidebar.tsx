@@ -12,6 +12,7 @@ import InfoIcon from '@mui/icons-material/Info'
 import ControlPointIcon from '@mui/icons-material/ControlPoint'
 
 import ImportModal from './ImportModal/ImportModal'
+import Actions from './Actions'
 import en_US from '../../i18n/en_US.json'
 
 type SidebarProps = {
@@ -99,7 +100,9 @@ const Sidebar = ({ game, setFen }: SidebarProps) => {
               )}
             </Box>
           </SectionWrapper>
-          <SectionWrapper>Other stuff here</SectionWrapper>
+          <SectionWrapper>
+            <Actions game={game} setFen={setFen} />
+          </SectionWrapper>
         </Stack>
       </Paper>
     </>

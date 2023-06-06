@@ -1,6 +1,7 @@
+// @ts-nocheck
 import { useState, useEffect } from 'react'
 import { Stack, Box } from '@mui/material'
-import { Chess } from 'chess.js'
+import { Chess } from '../../chess.js/chess'
 
 import Chessboard from './Chessboard'
 import Sidebar from './Sidebar'
