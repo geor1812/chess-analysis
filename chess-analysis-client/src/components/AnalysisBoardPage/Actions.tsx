@@ -36,6 +36,7 @@ const Actions = ({
 
   const handleReset = () => {
     const currentFen = game.fen()
+    game.clearFuture()
     setFen(currentFen)
   }
 

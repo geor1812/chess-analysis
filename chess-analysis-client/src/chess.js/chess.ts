@@ -563,6 +563,15 @@ export class Chess {
     return this._future.pop()
   }
 
+  isNavigating() {
+    if (this._future.length !== 0) return true
+    return false
+  }
+
+  clearFuture() {
+    this._future = []
+  }
+
   removeHeader(key: string) {
     if (key in this._header) {
       delete this._header[key]

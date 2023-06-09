@@ -54,6 +54,9 @@ const Chessboard = ({
     sourceSquare: string
     targetSquare: string
   }) => {
+    if (game.isNavigating()) {
+      return null
+    }
     if (game.isGameOver()) {
       return null
     }
@@ -74,11 +77,15 @@ const Chessboard = ({
   }
 
   const onSquareClick = (square: string) => {
-    setPieceSquare(square)
-    setSquareStyles(getSquareStyling({ pieceSquare: square, history }))
+    if (game.isNavigating()) {
+      return null
+    }
     if (game.isGameOver()) {
       return null
     }
+    setPieceSquare(square)
+    setSquareStyles(getSquareStyling({ pieceSquare: square, history }))
+
     const possibleMoves = game.moves({
       square: square,
       verbose: true,
