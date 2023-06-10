@@ -31,6 +31,30 @@ const Chessboard = ({
   const [squareStyles, setSquareStyles] = useState({})
 
   useEffect(() => {
+    highlightEngineMoves()
+  }, [engineHighlight])
+
+  useEffect(() => {
+    if (game && fen === game.fen()) {
+      resetStyles()
+    } else {
+      removeStyles()
+    }
+  }, [fen])
+
+  const removeStyles = () => {
+    setSquareStyles({})
+  }
+
+  const resetStyles = () => {
+    const styles = getSquareStyling({
+      history,
+      pieceSquare: null,
+    })
+    setSquareStyles(styles)
+  }
+
+  const highlightEngineMoves = async () => {
     if (engineHighlight) {
       const toHasPiece = game.get(engineHighlight.to) ? true : false
       const highlightStyles = {
@@ -43,14 +67,9 @@ const Chessboard = ({
             : 'radial-gradient(circle, #90CAF9 10%, transparent 40%)',
         },
       }
-      const existingStyles = getSquareStyling({
-        pieceSquare,
-        history,
-      })
-      setSquareStyles({ ...existingStyles, ...highlightStyles })
+      setSquareStyles({ ...squareStyles, ...highlightStyles })
     }
-  }, [engineHighlight])
-
+  }
   const highlightPossibleMoves = (
     sourceSquare: string,
     squaresToHighlight: string[]
@@ -153,7 +172,13 @@ const Chessboard = ({
   )
 }
 
-const getSquareStyling = ({ pieceSquare, history }) => {
+const getSquareStyling = ({
+  history,
+  pieceSquare,
+}: {
+  history: any[]
+  pieceSquare?: string
+}) => {
   const sourceSquare = history.length && history[history.length - 1].from
   const targetSquare = history.length && history[history.length - 1].to
 

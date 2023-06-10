@@ -8,7 +8,7 @@ import {
   Paper,
 } from '@mui/material'
 
-import en_US from '../../../i18n/en_US.json'
+import en_US from '../../i18n/en_US.json'
 import { SCREEN } from './ImportModal'
 
 type SelectScreenProps = {

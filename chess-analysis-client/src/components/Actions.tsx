@@ -6,8 +6,8 @@ import HistoryIcon from '@mui/icons-material/History'
 import SyncIcon from '@mui/icons-material/Sync'
 
 import { Orientation } from './AnalysisBoardPage'
-import en_US from '../../i18n/en_US.json'
-import { getMoveWithOffset } from '../../utils/chessUtils'
+import en_US from '../i18n/en_US.json'
+import { getMoveWithOffset } from '../utils/chessUtils'
 
 type ActionsProps = {
   game: any

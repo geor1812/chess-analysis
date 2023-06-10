@@ -1,9 +1,17 @@
 import { useEffect, useState } from 'react'
-import { Button, Box, Stack, Typography } from '@mui/material'
+import {
+  Button,
+  Box,
+  Stack,
+  Typography,
+  LinearProgress,
+  linearProgressClasses,
+} from '@mui/material'
+import { styled } from '@mui/material/styles'
 import SmartToyIcon from '@mui/icons-material/SmartToy'
 
-import en_US from '../../i18n/en_US.json'
-import { extractEval } from '../../utils/chessUtils'
+import en_US from '../i18n/en_US.json'
+import { extractEval } from '../utils/chessUtils'
 import { EngineHighlight } from './Chessboard'
 
 const DEPTH = 15
@@ -20,12 +28,17 @@ export type Eval = {
   bestMove: string
   pondering: string
   engineHighlight: EngineHighlight
+  pawnAdvantage: number
+  evalBarPosition: number
 }
 
 const Evaluation = ({ fen, atMove, setEngineHighlight }: EvaluationProps) => {
   const [bestMove, setBestMove] = useState('')
   const [pondering, setPondering] = useState('')
   const [evalAt, setEvalAt] = useState('')
+  const [pawnAdvantage, setPawnAdvantage] = useState(0)
+  const [evalBarPosition, setEvalBarPosition] = useState(50)
+
   useEffect(() => {
     stockfish.postMessage('uci')
     stockfish.onmessage = (message) => {
@@ -34,6 +47,8 @@ const Evaluation = ({ fen, atMove, setEngineHighlight }: EvaluationProps) => {
         setBestMove(evaluation.bestMove)
         setPondering(evaluation.pondering)
         setEngineHighlight(evaluation.engineHighlight)
+        setPawnAdvantage(evaluation.pawnAdvantage)
+        setEvalBarPosition(evaluation.evalBarPosition)
       }
       console.log(message)
     }
@@ -48,7 +63,10 @@ const Evaluation = ({ fen, atMove, setEngineHighlight }: EvaluationProps) => {
   }
 
   return (
-    <Stack sx={{ mt: 1, width: '16vw', display: 'flex', alignItems: 'center' }}>
+    <Stack
+      spacing={2}
+      sx={{ mt: 1, width: '16vw', display: 'flex', alignItems: 'center' }}
+    >
       <Typography sx={{ fontWeight: '600' }}>
         {en_US.analysisBoardPage.atMove}
       </Typography>
@@ -82,8 +100,12 @@ const Evaluation = ({ fen, atMove, setEngineHighlight }: EvaluationProps) => {
           <Typography>{evalAt}</Typography>
         </Box>
       )}
-      <Stack spacing={2}>
-        <Stack sx={{ mt: 5 }} spacing={2} direction="row">
+      <Typography>{pawnAdvantage}</Typography>
+      <Box>
+        <BorderLinearProgress variant="determinate" value={evalBarPosition} />
+      </Box>
+      <Stack>
+        <Stack spacing={2} direction="row">
           <Typography sx={{ mt: 1 }}>
             {en_US.analysisBoardPage.bestMove}
           </Typography>
@@ -117,4 +139,18 @@ const Evaluation = ({ fen, atMove, setEngineHighlight }: EvaluationProps) => {
     </Stack>
   )
 }
+
+const BorderLinearProgress = styled(LinearProgress)(() => ({
+  height: 20,
+  width: 250,
+  borderRadius: 5,
+  [`&.${linearProgressClasses.colorPrimary}`]: {
+    backgroundColor: 'black',
+  },
+  [`& .${linearProgressClasses.bar}`]: {
+    borderRadius: 5,
+    backgroundColor: 'white',
+  },
+}))
+
 export default Evaluation

@@ -3,7 +3,7 @@ import { ThemeProvider, CssBaseline } from '@mui/material'
 
 import { darkTheme } from './utils/theme'
 import Homepage from './components/Homepage'
-import AnalysisBoardPage from './components/AnalysisBoardPage/AnalysisBoardPage'
+import AnalysisBoardPage from './components/AnalysisBoardPage'
 
 function App() {
   return (

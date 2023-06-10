@@ -14,7 +14,7 @@ import ControlPointIcon from '@mui/icons-material/ControlPoint'
 import ImportModal from './ImportModal/ImportModal'
 import Actions from './Actions'
 import Evaluation from './Evaluation'
-import en_US from '../../i18n/en_US.json'
+import en_US from '../i18n/en_US.json'
 import { Orientation } from './AnalysisBoardPage'
 import { EngineHighlight } from './Chessboard'
 

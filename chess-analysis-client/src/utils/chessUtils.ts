@@ -1,4 +1,4 @@
-import { Eval } from '../components/AnalysisBoardPage/Evaluation'
+import { Eval } from '../components/Evaluation'
 
 export const getMoveWithOffset = (pgn: string, offset: number): string => {
   const turns = pgn.split('\n')
@@ -66,17 +66,26 @@ export const extractEval = (message: string): Eval => {
   if (turn === 'b') {
     cpScore = -cpScore
   }
-  console.log('CP Score', cpScore / 100)
-  console.log('Sigmoid conversion', sigmoid(cpScore))
+  const pawnAdvantage = cpScore / 100
 
+  const evalBarPosition = normalise(pawnAdvantage)
   const evaluation: Eval = {
     bestMove,
     pondering,
     engineHighlight,
+    pawnAdvantage,
+    evalBarPosition,
   }
   return evaluation
 }
-
-const sigmoid = (p: number) => {
-  return 1 / (1 + Math.pow(10, -p / 4))
+const MIN = -10
+const MAX = +10
+const normalise = (value) => {
+  if (value < -10) {
+    value = -10
+  }
+  if (value > 10) {
+    value = 10
+  }
+  return ((value - MIN) * 100) / (MAX - MIN)
 }

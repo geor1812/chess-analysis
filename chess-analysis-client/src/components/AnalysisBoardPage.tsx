@@ -1,11 +1,11 @@
 // @ts-nocheck
 import { useState, useEffect } from 'react'
 import { Stack, Box } from '@mui/material'
-import { Chess } from '../../chess.js/chess'
+import { Chess } from '../chess.js/chess'
 import Chessboard from './Chessboard'
 import Sidebar from './Sidebar'
 
-import { getMoveWithOffset } from '../../utils/chessUtils'
+import { getMoveWithOffset } from '../utils/chessUtils'
 import { EngineHighlight } from './Chessboard'
 
 const START_FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'

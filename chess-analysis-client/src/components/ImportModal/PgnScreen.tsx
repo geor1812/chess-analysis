@@ -13,7 +13,7 @@ import {
 } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
-import en_US from '../../../i18n/en_US.json'
+import en_US from '../../i18n/en_US.json'
 import { SCREEN } from './ImportModal'
 
 type PgnScreenProps = {
