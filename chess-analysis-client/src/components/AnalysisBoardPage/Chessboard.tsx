@@ -3,6 +3,11 @@ import Board from 'chessboardjsx'
 
 import { Orientation } from './AnalysisBoardPage'
 
+export type EngineHighlight = {
+  from: string
+  to: string
+}
+
 type ChessboardProps = {
   game: any
   history: any[]
@@ -10,6 +15,7 @@ type ChessboardProps = {
   setFen: (fen: string) => void
   setHistory: (history: any[]) => void
   orientation: Orientation
+  engineHighlight: EngineHighlight
 }
 
 const Chessboard = ({
@@ -19,9 +25,32 @@ const Chessboard = ({
   fen,
   setFen,
   orientation,
+  engineHighlight,
 }: ChessboardProps) => {
   const [pieceSquare, setPieceSquare] = useState('')
   const [squareStyles, setSquareStyles] = useState({})
+
+  useEffect(() => {
+    if (engineHighlight) {
+      const toHasPiece = game.get(engineHighlight.to) ? true : false
+      const highlightStyles = {
+        [engineHighlight.from]: {
+          backgroundColor: 'rgba(144, 202, 249, 1)',
+        },
+        [engineHighlight.to]: {
+          background: toHasPiece
+            ? 'radial-gradient(circle, transparent 60%, #90CAF9)'
+            : 'radial-gradient(circle, #90CAF9 10%, transparent 40%)',
+        },
+      }
+      const existingStyles = getSquareStyling({
+        pieceSquare,
+        history,
+      })
+      setSquareStyles({ ...existingStyles, ...highlightStyles })
+    }
+  }, [engineHighlight])
+
   const highlightPossibleMoves = (
     sourceSquare: string,
     squaresToHighlight: string[]

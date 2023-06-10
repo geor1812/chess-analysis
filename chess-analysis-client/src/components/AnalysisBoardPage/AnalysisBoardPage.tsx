@@ -2,9 +2,11 @@
 import { useState, useEffect } from 'react'
 import { Stack, Box } from '@mui/material'
 import { Chess } from '../../chess.js/chess'
-
 import Chessboard from './Chessboard'
 import Sidebar from './Sidebar'
+
+import { getMoveWithOffset } from '../../utils/chessUtils'
+import { EngineHighlight } from './Chessboard'
 
 const START_FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
 
@@ -17,7 +19,17 @@ const AnalysisBoardPage = () => {
   const [game, setGame] = useState<any>()
   const [history, setHistory] = useState([])
   const [fen, setFen] = useState(START_FEN)
+  const [atMove, setAtMove] = useState('Starting position')
   const [orientation, setOrientation] = useState<Orientation>(Orientation.White)
+  const [engineHighlight, setEngineHighlight] =
+    useState<EngineHighlight | null>(null)
+
+  useEffect(() => {
+    if (game) {
+      const currentPgn = game.pgn({ maxWidth: 5, newLine: '\n' })
+      setAtMove(getMoveWithOffset(currentPgn, 0))
+    }
+  }, [history])
 
   useEffect(() => {
     setGame(new Chess())
@@ -41,6 +53,7 @@ const AnalysisBoardPage = () => {
           fen={fen}
           setFen={setFen}
           orientation={orientation}
+          engineHighlight={engineHighlight}
         />
       </Box>
       <Box
@@ -54,9 +67,13 @@ const AnalysisBoardPage = () => {
       >
         <Sidebar
           game={game}
+          fen={fen}
           setFen={setFen}
           orientation={orientation}
           setOrientation={setOrientation}
+          atMove={atMove}
+          setAtMove={setAtMove}
+          setEngineHighlight={setEngineHighlight}
         />
       </Box>
     </Stack>

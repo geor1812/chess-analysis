@@ -5,6 +5,10 @@
     "info": "Info"
   },
   "analysisBoardPage": {
+    "atMove": "At move",
+    "bestMove": "Best move",
+    "pondering": "Pondering",
+    "getEval": "Get engine evaluation",
     "back": "Back",
     "next": "Next",
     "reset": "Reset to current position",

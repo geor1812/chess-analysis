@@ -13,14 +13,20 @@ import ControlPointIcon from '@mui/icons-material/ControlPoint'
 
 import ImportModal from './ImportModal/ImportModal'
 import Actions from './Actions'
+import Evaluation from './Evaluation'
 import en_US from '../../i18n/en_US.json'
 import { Orientation } from './AnalysisBoardPage'
+import { EngineHighlight } from './Chessboard'
 
 type SidebarProps = {
   game: any
+  fen: string
   setFen: (fen: string) => void
   orientation: Orientation
   setOrientation: (orientation: Orientation) => void
+  atMove: string
+  setAtMove: (atMove: string) => void
+  setEngineHighlight: (engineHighlight: EngineHighlight) => void
 }
 
 type SectionHeaderProps = {
@@ -35,9 +41,13 @@ type SectionWrapperProps = {
 
 const Sidebar = ({
   game,
+  fen,
   setFen,
   orientation,
   setOrientation,
+  atMove,
+  setAtMove,
+  setEngineHighlight,
 }: SidebarProps) => {
   const [openImportModal, setOpenImportModal] = useState(false)
   const handleOpen = () => setOpenImportModal(true)
@@ -93,7 +103,7 @@ const Sidebar = ({
             <Box
               sx={{
                 p: 2,
-                height: '71vh',
+                height: '69vh',
                 width: '17vw',
                 backgroundColor: 'background.default',
                 overflowY: 'scroll',
@@ -114,6 +124,12 @@ const Sidebar = ({
               setFen={setFen}
               orientation={orientation}
               setOrientation={setOrientation}
+              setAtMove={setAtMove}
+            />
+            <Evaluation
+              fen={fen}
+              atMove={atMove}
+              setEngineHighlight={setEngineHighlight}
             />
           </SectionWrapper>
         </Stack>
