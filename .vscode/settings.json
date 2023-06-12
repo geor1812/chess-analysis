@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/1512f81e-c4df-454a-bc06-cd54792cbbc8/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/chess-analysis-server",
+  "appService.deploySubpath": "chess-analysis-server"
+}

@@ -79,7 +79,6 @@ const Sidebar = ({
         <Stack
           sx={{
             display: 'flex',
-            //justifyContent: 'center',
             alignItems: 'center',
           }}
         >
