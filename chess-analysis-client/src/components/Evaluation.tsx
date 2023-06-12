@@ -22,6 +22,7 @@ type EvaluationProps = {
   fen: string
   atMove: string
   setEngineHighlight: (engineHighlight: EngineHighlight) => void
+  opening: string | undefined
 }
 
 export type Eval = {
@@ -32,7 +33,12 @@ export type Eval = {
   evalBarPosition: number
 }
 
-const Evaluation = ({ fen, atMove, setEngineHighlight }: EvaluationProps) => {
+const Evaluation = ({
+  fen,
+  atMove,
+  setEngineHighlight,
+  opening,
+}: EvaluationProps) => {
   const [bestMove, setBestMove] = useState('')
   const [pondering, setPondering] = useState('')
   const [evalAt, setEvalAt] = useState('')
@@ -64,7 +70,7 @@ const Evaluation = ({ fen, atMove, setEngineHighlight }: EvaluationProps) => {
 
   return (
     <Stack
-      spacing={2}
+      spacing={1.5}
       sx={{ mt: 1, width: '16vw', display: 'flex', alignItems: 'center' }}
     >
       <Typography sx={{ fontWeight: '600' }}>
@@ -74,13 +80,13 @@ const Evaluation = ({ fen, atMove, setEngineHighlight }: EvaluationProps) => {
         sx={{
           p: 2,
           backgroundColor: 'background.default',
-          width: 235,
           display: 'flex',
           justifyContent: 'center',
         }}
       >
         <Typography>{atMove}</Typography>
       </Box>
+      <Typography>{opening}</Typography>
       <Button
         variant="outlined"
         onClick={getEvaluation}

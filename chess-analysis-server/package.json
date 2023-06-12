@@ -17,8 +17,10 @@
   "author": "George Ursachi",
   "license": "ISC",
   "dependencies": {
+    "chess.js": "^1.0.0-beta.6",
     "common-es": "^1.0.1",
     "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "d3": "^7.8.5",
     "dotenv": "^16.1.4",
     "express": "^4.18.2",

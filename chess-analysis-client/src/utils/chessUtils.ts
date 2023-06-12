@@ -46,6 +46,11 @@ export const getMoveWithOffset = (pgn: string, offset: number): string => {
   return 'Starting position'
 }
 
+export const getLastMove = (pgn: string) => {
+  const moves = pgn.split(' ')
+  return moves[moves.length - 1]
+}
+
 export const extractEval = (message: string): Eval => {
   console.log(message)
   const splitMessage = message.split(' ')

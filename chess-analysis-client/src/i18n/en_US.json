@@ -5,6 +5,12 @@
     "info": "Info"
   },
   "analysisBoardPage": {
+    "responseTable": {
+      "move": "Move",
+      "name": "Name",
+      "count": "Count"
+    },
+    "responses": "Common responses",
     "atMove": "At move",
     "bestMove": "Best move",
     "pondering": "Pondering",

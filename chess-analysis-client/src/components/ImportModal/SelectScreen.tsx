@@ -39,11 +39,6 @@ const SelectScreen = ({ handleClose, setScreen }: SelectScreenProps) => {
           >
             <Typography variant="h6">{en_US.analysisBoardPage.pgn}</Typography>
           </Button>
-          <Button variant="outlined" size="large">
-            <Typography variant="h6">
-              {en_US.analysisBoardPage.searchDatabase}
-            </Typography>
-          </Button>
         </Stack>
       </DialogContent>
       <DialogActions sx={{ justifyContent: 'center' }}>

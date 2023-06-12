@@ -1,4 +1,5 @@
 import { ReactNode, useState } from 'react'
+import { useQuery } from 'react-query'
 import {
   Paper,
   Typography,
@@ -14,9 +15,11 @@ import ControlPointIcon from '@mui/icons-material/ControlPoint'
 import ImportModal from './ImportModal/ImportModal'
 import Actions from './Actions'
 import Evaluation from './Evaluation'
+import Database from './Database'
 import en_US from '../i18n/en_US.json'
 import { Orientation } from './AnalysisBoardPage'
 import { EngineHighlight } from './Chessboard'
+import { getOpeningAndResponsesByFen } from '../queries'
 
 type SidebarProps = {
   game: any
@@ -52,6 +55,11 @@ const Sidebar = ({
   const [openImportModal, setOpenImportModal] = useState(false)
   const handleOpen = () => setOpenImportModal(true)
   const handleClose = () => setOpenImportModal(false)
+
+  const { isLoading, data } = useQuery(['opening', fen], () =>
+    getOpeningAndResponsesByFen(fen)
+  )
+  console.log(data)
 
   return (
     <>
@@ -95,7 +103,7 @@ const Sidebar = ({
           </Box>
         </SectionWrapper>
         <Stack direction="row" spacing={2}>
-          <SectionWrapper>
+          <SectionWrapper sx={{ height: '48vh' }}>
             <SectionHeader
               text={en_US.analysisBoardPage.pgn}
               tooltip={en_US.analysisBoardPage.pgnTooltip}
@@ -103,7 +111,7 @@ const Sidebar = ({
             <Box
               sx={{
                 p: 2,
-                height: '69vh',
+                height: 'inherit',
                 width: '17vw',
                 backgroundColor: 'background.default',
                 overflowY: 'scroll',
@@ -130,9 +138,13 @@ const Sidebar = ({
               fen={fen}
               atMove={atMove}
               setEngineHighlight={setEngineHighlight}
+              opening={data?.opening?.name}
             />
           </SectionWrapper>
         </Stack>
+        <SectionWrapper>
+          <Database responses={data?.responses} />
+        </SectionWrapper>
       </Paper>
     </>
   )
@@ -150,7 +162,7 @@ const SectionHeader = ({ text, tooltip }: SectionHeaderProps) => {
 }
 
 const SectionWrapper = ({ children, sx }: SectionWrapperProps) => {
-  return <Box sx={{ mb: 3, ...sx }}>{children}</Box>
+  return <Box sx={{ mb: 2, ...sx }}>{children}</Box>
 }
 
 export default Sidebar
