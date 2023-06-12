@@ -5,6 +5,7 @@ import { ThemeProvider, CssBaseline } from '@mui/material'
 import { darkTheme } from './utils/theme'
 import Homepage from './components/Homepage'
 import AnalysisBoardPage from './components/AnalysisBoardPage'
+import Auth from './components/Auth/Auth'
 
 const queryClient = new QueryClient()
 
@@ -18,6 +19,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Homepage />} />
               <Route path="/analysis" element={<AnalysisBoardPage />} />
+              <Route path="/auth" element={<Auth />} />
             </Routes>
           </BrowserRouter>
         </ThemeProvider>

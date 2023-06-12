@@ -1,10 +1,22 @@
 {
+  "auth": {
+    "register": "Register",
+    "fill": "Please fill out the fields below",
+    "email": "Email",
+    "password": "Password",
+    "repeatPassword": "Repeat password",
+    "login": "Login",
+    "welcome": "Welcome!"
+  },
   "homepage": {
     "title": "CHESS ANALYSIS",
     "analysis": "Analysis board",
-    "info": "Info"
+    "info": "Info",
+    "login": "Login",
+    "register": "Register"
   },
   "analysisBoardPage": {
+    "loginPrompt": "You must be logged in to access board analysis",
     "responseTable": {
       "move": "Move",
       "name": "Name",

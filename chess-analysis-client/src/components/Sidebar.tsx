@@ -1,5 +1,6 @@
 import { ReactNode, useState } from 'react'
 import { useQuery } from 'react-query'
+import { Link } from 'react-router-dom'
 import {
   Paper,
   Typography,
@@ -20,6 +21,7 @@ import en_US from '../i18n/en_US.json'
 import { Orientation } from './AnalysisBoardPage'
 import { EngineHighlight } from './Chessboard'
 import { getOpeningAndResponsesByFen } from '../queries'
+import useAuth from '../hooks/useAuth'
 
 type SidebarProps = {
   game: any
@@ -52,6 +54,8 @@ const Sidebar = ({
   setAtMove,
   setEngineHighlight,
 }: SidebarProps) => {
+  const { user } = useAuth()
+
   const [openImportModal, setOpenImportModal] = useState(false)
   const handleOpen = () => setOpenImportModal(true)
   const handleClose = () => setOpenImportModal(false)
@@ -59,7 +63,49 @@ const Sidebar = ({
   const { isLoading, data } = useQuery(['opening', fen], () =>
     getOpeningAndResponsesByFen(fen)
   )
-  console.log(data)
+
+  if (!user) {
+    return (
+      <Paper
+        sx={{
+          p: 2,
+          width: '35vw',
+          height: '35vh',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Stack
+          sx={{
+            display: 'flex',
+            //justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Typography>{en_US.analysisBoardPage.loginPrompt}</Typography>
+          <Link
+            to={'/auth'}
+            style={{ textDecoration: 'none' }}
+            state={{ isRegister: false }}
+          >
+            <Typography
+              variant="h4"
+              color="primary.main"
+              sx={{
+                '&:hover': {
+                  color: 'primary.dark',
+                  textDecoration: 'underline',
+                },
+              }}
+            >
+              {en_US.auth.login}
+            </Typography>
+          </Link>
+        </Stack>
+      </Paper>
+    )
+  }
 
   return (
     <>

@@ -2,6 +2,7 @@ import express from 'express'
 import cookieParser from 'cookie-parser'
 import dotenv from 'dotenv'
 import cors from 'cors'
+import rateLimit from 'express-rate-limit'
 
 import { router as openingsRouter } from './routers/openingsRouter.js'
 import { router as authRouter } from './routers/authRouter.js'
@@ -11,6 +12,12 @@ const PORT = 8080
 dotenv.config()
 const app = express()
 
+const apiLimiter = rateLimit({
+  windowMs: 60 * 1000, //One minute
+  max: 100,
+})
+
+app.use(apiLimiter)
 app.use(cors())
 app.use(express.json())
 app.use(express.json())
