@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 
 import { router as openingsRouter } from './routers/openingsRouter.js'
+import { router as authRouter } from './routers/authRouter.js'
 
 const PORT = 8080
 
@@ -24,6 +25,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/openings', openingsRouter)
+app.use('/auth', authRouter)
 
 try {
   app.listen(PORT, () => {

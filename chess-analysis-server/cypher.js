@@ -3,7 +3,6 @@ export const formatResponse = (resultObj) => {
   if (resultObj.records.length > 0) {
     resultObj.records.map((record) => {
       let fields = {}
-      console.log
       for (let i = 0; i < record._fields.length; i++) {
         fields = { ...fields, ...record._fields[i].properties }
       }
@@ -48,4 +47,12 @@ MATCH (o: Opening)-[:DESCRIBES]->(f2)<-[:TRANSLATES_TO]-(p: Pgn)
 RETURN f2, r, p, o
 ORDER BY r.count DESC
 LIMIT $limit;
+`
+
+export const MATCH_ACCOUNT = `
+MATCH (a: Account {email: $email}) RETURN a
+`
+
+export const CREATE_ACCOUNT = `
+CREATE (a: Account {email: $email, salt: $salt, hash: $hash}) RETURN a
 `

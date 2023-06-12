@@ -8,7 +8,7 @@ router.get('/:fen', async (req, res) => {
   try {
     const opening = await getOpeningByFen(req.params.fen)
     const responses = await getFenResponses(req.params.fen)
-    res.json({ opening, responses })
+    res.status(200).json({ opening, responses })
   } catch (error) {
     console.log(error)
   }
