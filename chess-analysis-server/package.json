@@ -17,6 +17,7 @@
   "author": "George Ursachi",
   "license": "ISC",
   "dependencies": {
+    "base-64": "^1.0.0",
     "bcrypt": "^5.1.0",
     "chess.js": "^1.0.0-beta.6",
     "common-es": "^1.0.1",
@@ -30,7 +31,8 @@
     "fs": "^0.0.1-security",
     "jsonwebtoken": "^9.0.0",
     "neo4j-driver": "^5.9.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "utf8": "^3.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
