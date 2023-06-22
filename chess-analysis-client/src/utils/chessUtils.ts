@@ -81,11 +81,13 @@ export const extractEval = (message: string): Eval => {
     pawnAdvantage,
     evalBarPosition,
   }
+  console.log(evaluation)
   return evaluation
 }
+
 const MIN = -10
 const MAX = +10
-const normalise = (value) => {
+export const normalise = (value) => {
   if (value < -10) {
     value = -10
   }
